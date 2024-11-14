@@ -1,0 +1,15 @@
+
+
+//O que o professor orientou 
+Tipos de testes 
+//healthCheck
+// contrato
+// aceitação CRUD
+// Testes Funcionais
+
+Endpoints
+Pedidos e Clientes
+
+Exercíco
+- Categorias (addCategory, editCategory, deleteCategory)
+- Produtos (addProduct, editProduct, deleteProduct)
