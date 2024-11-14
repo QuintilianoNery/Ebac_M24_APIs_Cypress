@@ -13,3 +13,8 @@ Pedidos e Clientes
 Exercíco
 - Categorias (addCategory, editCategory, deleteCategory)
 - Produtos (addProduct, editProduct, deleteProduct)
+
+//Incluir
+//Buscar
+//Alterar
+//Excluir
