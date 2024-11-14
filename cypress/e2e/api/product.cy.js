@@ -63,7 +63,7 @@ describe('Produtos  ', () => {
 
     });
 
-    it.only('Listar detalhes do produto - getProductDetails', () => {
+    it('Listar detalhes do produto', () => {
         cy.request({
             method: 'GET',
             url: `/public/getProductDetails/${Cypress.env('productId')}`,
