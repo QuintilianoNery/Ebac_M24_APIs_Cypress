@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('validateParametersResponse', (resStatus, resMessage, resCode, resTrueAndFalse) => {
+    expect(resStatus).to.eq(resCode);
+    expect(resMessage).to.have.property('success').to.eq(resTrueAndFalse);
+})
