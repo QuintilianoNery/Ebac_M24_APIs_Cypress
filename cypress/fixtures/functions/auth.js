@@ -10,7 +10,7 @@ export const postUserAndToken = (email, password) => {
       body: usuario
     }).then((res) => {
       let token = res.body.data.token;
-      Cypress.env('token', token); // Armazena o token em Cypress.env
+      Cypress.env('token', token, { log: false }); // Armazena o token em Cypress.env
       return token;
     });
 }
