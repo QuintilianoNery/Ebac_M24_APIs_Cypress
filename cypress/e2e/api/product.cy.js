@@ -1,6 +1,6 @@
 const users = require('../../fixtures/web/data/users.json')
 import { postUserAndToken } from '../../fixtures/functions/auth.js'
-import { getIdProduct } from '../../fixtures/functions/products.js'
+import { getIdProduct, postNewproduct } from '../../fixtures/functions/products.js'
 import { getIdCategory } from '../../fixtures/functions/category.js'
 const faker = require('faker-br')
 
@@ -15,7 +15,7 @@ let visible = true;
 let location = "Florianópolis, SC, Brasil";
 let additionalDetails = [];
 let specialPrice = faker.commerce.price();
-
+//INCLUIR UMA FUNÇÃO PARA CRIAR UM PRODUTO ANTES DE CADA TESTE 
 beforeEach(() => {
     //Obtem o token de usuário
     postUserAndToken(users.users.email, users.users.password, { log: false });
@@ -45,14 +45,14 @@ describe('Produtos  ', () => {
                 "additionalDetails": additionalDetails,
                 "specialPrice": specialPrice
             }
-        })
-            .then((res) => {
-                cy.validateParametersResponse(res.status, res.body, 200, true)
-                expect(res.body).to.have.property('message').to.eq('product added');
-            });
+        }).then((res) => {
+            cy.validateParametersResponse(res.status, res.body, 200, true)
+            expect(res.body).to.have.property('message').to.eq('product added');
+        });
     });
 
     it('Listar produtos', () => {
+        postNewproduct(name, price, quantity, categories, description, photos, popular, visible, location, additionalDetails, specialPrice)
         cy.request({
             method: 'GET',
             url: '/public/getProducts',
@@ -64,20 +64,54 @@ describe('Produtos  ', () => {
     });
 
     it('Listar detalhes do produto', () => {
+        postNewproduct(name, price, quantity, categories, description, photos, popular, visible, location, additionalDetails, specialPrice)
         cy.request({
             method: 'GET',
             url: `/public/getProductDetails/${Cypress.env('productId')}`,
         })
-        .then((res) => {
-            cy.validateParametersResponse(res.status, res.body, 200, true)
-            expect(res.body.product._id).to.exist;
-        });
+            .then((res) => {
+                cy.validateParametersResponse(res.status, res.body, 200, true)
+                expect(res.body.product._id).to.exist;
+            });
     });
 
     it('Alterar produto', () => {
-
+        postNewproduct(name, price, quantity, categories, description, photos, popular, visible, location, additionalDetails, specialPrice)
+        cy.request({
+            method: 'PUT',
+            url: `/api/editProduct/${Cypress.env('productId')}`,
+            headers: {
+                'Authorization': Cypress.env('token')
+            },
+            body: {
+                "name": name,
+                "price": price,
+                "quantity": quantity,
+                "categories": categories,
+                "description": description,
+                "photos": photos,
+                "popular": popular,
+                "visible": visible,
+                "location": location,
+                "additionalDetails": additionalDetails,
+                "specialPrice": specialPrice
+            }
+        }).then((res) => {
+            cy.validateParametersResponse(res.status, res.body, 200, true)
+            expect(res.body).to.have.property('message').to.eq('product updated');
+        });
     });
     it('Excluir produto', () => {
-
+        postNewproduct(name, price, quantity, categories, description, photos, popular, visible, location, additionalDetails, specialPrice)
+        cy.request({
+            method: 'DELETE',
+            url: `/api/deleteProduct/${Cypress.env('productId')}`,
+            headers: {
+                'Authorization': Cypress.env('token')
+            }
+        }).then((res) => {
+            cy.validateParametersResponse(res.status, res.body, 200, true)
+            expect(res.body).to.have.property('message').to.eq('product deleted');
+        });
     });
 })
