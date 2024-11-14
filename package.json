@@ -1,0 +1,24 @@
+{
+  "name": "ebac_m24_apis_cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuintilianoNery/Ebac_M24_APIs_Cypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QuintilianoNery/Ebac_M24_APIs_Cypress/issues"
+  },
+  "homepage": "https://github.com/QuintilianoNery/Ebac_M24_APIs_Cypress#readme",
+  "devDependencies": {
+    "cypress": "^13.15.2",
+    "faker-br": "^0.4.1"
+  }
+}
